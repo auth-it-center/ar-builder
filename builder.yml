@@ -1,0 +1,8 @@
+---
+- hosts: ar-builders
+  user: root
+  roles:
+    - common
+    - builder
+    - ca_bundle
+    - kojiclient

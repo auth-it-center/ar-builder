@@ -1,0 +1,31 @@
+---
+- name: Install koji client
+  yum: name=koji state=present
+
+- name: Copy configuration file for koji
+  tags: configure
+  copy: src=etc/koji.conf
+        dest=/etc/koji.conf backup=yes
+        owner=root group=root mode=0644
+
+- name: Create .globus directory
+  file: path=.globus owner=root group=root mode=0700 state=directory
+
+- name: Copy koji certificate file
+  copy: src=.globus/koji.pem
+        dest=/root/.globus/koji.pem backup=yes
+        owner=root group=root mode=0600
+
+- name: Import/upload newly build packages
+  tags: koji_import
+  shell: koji import --create-build ${item.n}-${item.v}-${item.r}.${item.a}.rpm
+         chdir=/root/rpmbuild/RPMS/${item.a}
+         removes=/root/rpmbuild/RPMS/${item.a}/${item.n}-${item.v}-${item.r}.${item.a}.rpm
+  with_items: ${packages}
+
+
+- name: Tag newly build packages
+  tags: koji_tag
+  shell: koji tag-pkg centos6-arstats ${item.n}-${item.v}-${item.r}
+         chdir=/root/rpmbuild/RPMS/${item.a}
+  with_items: ${packages}

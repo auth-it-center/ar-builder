@@ -1,0 +1,9 @@
+- name: Install EGI-trustanchors repository definitions
+  tags: ca_bundle
+  copy: src=etc/yum.repos.d/EGI-trustanchors.repo 
+        dest=/etc/yum.repos.d/EGI-trustanchors.repo backup=no
+        owner=root group=root mode=0644
+
+- name: Install EGI CA certificates
+  tags: ca_bundle
+  yum: name=ca-policy-egi-core state=latest
