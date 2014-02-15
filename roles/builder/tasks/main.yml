@@ -25,13 +25,6 @@
 
 - name: Build targets
   tags: build
-  shell: make rpms chdir=/root/ar-ng/builder
-         creates=/root/rpmbuild/RPMS/x86_64/ar-api-1.0.17-2.19.el6.x86_64.rpm
-         creates=/root/rpmbuild/RPMS/x86_64/ar-local-compute-1.0.18-3.19.el6.x86_64.rpm
-         creates=/root/rpmbuild/RPMS/x86_64/ar-compute-1.0.16-4.19.el6.x86_64.rpm
-         creates=/root/rpmbuild/RPMS/noarch/ar-consumer-1.0.1-2.19.el6.noarch.rpm
-         creates=/root/rpmbuild/RPMS/noarch/ar-release-1.0.0-3.19.el6.noarch.rpm
-         creates=/root/rpmbuild/RPMS/noarch/ar-transit-1.0.16-6.19.el6.noarch.rpm
-         creates=/root/rpmbuild/RPMS/noarch/ar-sync-1.1.19-1.19.el6.noarch.rpm
-
-
+  shell: make rpms
+         chdir=/root/ar-ng/builder
+         creates=/root/rpmbuild
