@@ -3,15 +3,17 @@
   yum: name=koji state=present
 
 - name: Copy configuration file for koji
-  tags: configure
+  tags: koji_conf
   copy: src=etc/koji.conf
         dest=/etc/koji.conf backup=yes
         owner=root group=root mode=0644
 
 - name: Create .globus directory
+  tags: koji_conf
   file: path=.globus owner=root group=root mode=0700 state=directory
 
 - name: Copy koji certificate file
+  tags: koji_conf
   copy: src=.globus/koji.pem
         dest=/root/.globus/koji.pem backup=yes
         owner=root group=root mode=0600
@@ -29,3 +31,9 @@
   shell: koji tag-pkg centos6-arstats ${item.n}-${item.v}-${item.r}
          chdir=/root/rpmbuild/RPMS/${item.a}
   with_items: ${packages}
+
+- name: Remove koji certificate file
+  tags: koji_conf
+  shell: rm -f /root/.globus/koji.pem
+  notify: 
+    - clean_rpms

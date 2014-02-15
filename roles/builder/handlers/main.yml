@@ -1,0 +1,4 @@
+---
+
+- name: clean_rpms
+  shell: rm -rf /root/rpmbuild /root/ar-ng
