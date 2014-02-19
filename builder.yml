@@ -3,6 +3,7 @@
   user: root
   roles:
     - common
+    - repos
     - builder
     - ca_bundle
-#    - kojiclient
+    - kojiclient

@@ -1,11 +1,21 @@
 ---
 
+proxy_env: {}
+epel_release_url: http://ftp.ntua.gr/pub/linux/fedora-epel/6/i386/
+epel_release_name: epel-release-6-8.noarch.rpm
+maven_binary_url: http://mirrors.gigenet.com/apache/maven/maven-3/3.1.1/binaries
+maven_binary_name: apache-maven-3.1.1-bin.tar.gz
+
+repos:
+  - epel
+  - egi-trustanchors
+
 packages:
-  - {n: ar-consumer,     v: 1.0.1,  r: 2.19.el6, a: noarch}
+  - {n: ar-compute,      v: 1.1.0,  r: 1.20.el6, a: x86_64}
 #  - {n: ar-sync,         v: 1.1.19, r: 1.20.el6, a: noarch}
+#  - {n: ar-consumer,     v: 1.0.1,  r: 2.20.el6, a: noarch}
 #  - {n: ar-api,          v: 1.1.0,  r: 2.19.el6, a: x86_64}
 #  - {n: ar-local-compute,v: 1.1.0,  r: 1.19.el6, a: x86_64}
-#  - {n: ar-compute,      v: 1.1.0,  r: 1.19.el6, a: x86_64}
 #  - {n: ar-consumer,     v: 1.0.1,  r: 2.19.el6, a: noarch}
 #  - {n: ar-release,      v: 1.0.0,  r: 3.19.el6, a: noarch}
 #  - {n: ar-transit,      v: 1.0.16, r: 6.19.el6, a: noarch}

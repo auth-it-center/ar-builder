@@ -17,11 +17,31 @@
 - name: Install bzr package (building dep)
   yum: name=bzr state=present
 
-- name: Install maven2 package (building dep)
-  yum: name=maven2 state=present
-
 - name: Install java-1.7.0-openjdk-devel package (building dep)
   yum: name=java-1.7.0-openjdk-devel state=present
+
+- name: Install maven2 package (building dep)
+  yum: name=maven2 state=present
+  when: ansible_distribution == 'Fedora'
+
+- name: Download maven binary (building dep)
+  get_url: url=${maven_binary_url}/${maven_binary_name} dest=/tmp/${maven_binary_name} mode=0644
+  when: ansible_distribution == 'CentOS'
+
+- name: Untar maven binary (building dep)
+  command: tar -zxvf /tmp/${maven_binary_name} -C /usr/local
+           creates=/usr/local/apache-maven-3.1.1
+  when: ansible_distribution == 'CentOS'
+
+- name: Remove maven binary from fs
+  command: rm -f /tmp/${maven_binary_name}
+  when: ansible_distribution == 'CentOS'
+
+- name: Copy profile file
+  copy: src=maven.sh
+        dest=/etc/profile.d/maven.sh backup=no
+        owner=root group=root mode=0644
+  when: ansible_distribution == 'CentOS'
 
 - name: Build targets
   tags: build
