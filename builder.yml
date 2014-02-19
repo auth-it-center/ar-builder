@@ -5,4 +5,4 @@
     - common
     - builder
     - ca_bundle
-    - kojiclient
+#    - kojiclient

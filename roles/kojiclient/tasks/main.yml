@@ -28,7 +28,7 @@
 
 - name: Tag newly build packages
   tags: koji_tag
-  shell: koji tag-pkg centos6-arstats ${item.n}-${item.v}-${item.r}
+  shell: koji tag-pkg ${koji_tag} ${item.n}-${item.v}-${item.r}
          chdir=/root/rpmbuild/RPMS/${item.a}
   with_items: ${packages}
 

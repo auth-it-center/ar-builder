@@ -3,4 +3,4 @@ ansible/
 .DS_Store
 setup.sh
 .globus/
-inv
+inventory
