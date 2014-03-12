@@ -10,4 +10,4 @@ To use
 
 Then command to use afterwards is:
 
-`ansible-playbook -v builder.yml -i inventory --extra-vars="koji_tag=centos6-arstats-devel"`
+`ansible-playbook -v builder.yml -i inventory --extra-vars="koji_tag=centos6-arstats-devel synnefo_token=MySynnefoToken"`
