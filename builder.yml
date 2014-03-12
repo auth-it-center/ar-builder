@@ -9,8 +9,8 @@
 - hosts: ar-builders
   user: root
   roles:
-#    - common
-#    - repos
-#    - builder
+    - common
+    - repos
+    - builder
     - ca_bundle
     - kojiclient
