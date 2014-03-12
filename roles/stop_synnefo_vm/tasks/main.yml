@@ -1,4 +1,4 @@
-- name: Ensure the VM is started
+- name: Ensure the VM is stopped
   delegate_to: 127.0.0.1
   synnefo_compute:
      name=ar-centos-builder
