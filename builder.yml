@@ -4,7 +4,7 @@
   user: root
   gather_facts: no
   roles:
-    - synnefo_vm
+    - start_synnefo_vm
 
 - hosts: ar-builders
   user: root
@@ -14,3 +14,9 @@
     - builder
     - ca_bundle
     - kojiclient
+
+- hosts: ar-builders
+  user: root
+  gather_facts: no
+  roles:
+    - stop_synnefo_vm
