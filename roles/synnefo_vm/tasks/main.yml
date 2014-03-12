@@ -1,0 +1,8 @@
+- name: Ensure the VM is started
+  delegate_to: 127.0.0.1
+  synnefo_compute:
+     name=ar-centos-builder
+     state=active
+     wait=yes
+     token='{{ synnefo_token }}'
+     auth_url='https://accounts.okeanos.grnet.gr/identity/v2.0'

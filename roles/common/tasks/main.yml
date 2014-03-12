@@ -2,3 +2,6 @@
 
 - name: Install telnet
   yum: name=telnet state=present
+
+- name: Install libselinux-python
+  yum: name=libselinux-python state=present

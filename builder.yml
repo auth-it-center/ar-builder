@@ -1,9 +1,16 @@
 ---
+
+- hosts: ar-builders
+  user: root
+  gather_facts: no
+  roles:
+    - synnefo_vm
+
 - hosts: ar-builders
   user: root
   roles:
-    - common
-    - repos
-    - builder
+#    - common
+#    - repos
+#    - builder
     - ca_bundle
     - kojiclient

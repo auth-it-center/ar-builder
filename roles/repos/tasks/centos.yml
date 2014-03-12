@@ -2,64 +2,64 @@
 
 - name: Download epel-release package
   tags: epel_repo
-  get_url: url=${epel_release_url}/${epel_release_name} dest=/tmp/${epel_release_name} mode=0644
-  environment: $proxy_env
-  only_if: "'epel' in $repos"
+  get_url: url={{ epel_release_url }}/{{ epel_release_name }} dest=/tmp/{{ epel_release_name }} mode=0644
+  when: "'epel' in {{ repos }}"
+  environment: "{{ proxy_env }}"
 
 - name: Install epel-release package
   tags: epel_repo
-  command: yum install -y ${yum_flags} /tmp/${epel_release_name} creates=/etc/yum.repos.d/epel.repo
-  environment: $proxy_env
-  only_if: "'epel' in $repos"
+  command: yum install -y /tmp/{{ epel_release_name }} creates=/etc/yum.repos.d/epel.repo
+  when: "'epel' in {{ repos }}"
+  environment: "{{ proxy_env }}"
 
 - name: Download umd release package
   tags: umd_repo
-  get_url: url=${umd[${ansible_lsb.major_release}]} dest=/tmp/umd.rpm mode=0644
-  environment: $proxy_env
-  only_if: "'umd' in $repos"
+  get_url: url={{ umd[{{ ansible_lsb.major_release }}] }} dest=/tmp/umd.rpm mode=0644
+  environment: "{{ proxy_env }}"
+  when: "'umd' in {{ repos }}"
 
 - name: Install umd release package
   tags: umd_repo
-  command: yum install -y ${yum_flags} /tmp/umd.rpm creates=/etc/yum.repos.d/UMD-${umd_major_release}-base.repo 
-  environment: $proxy_env
-  only_if: "'umd' in $repos"
+  command: yum install -y /tmp/umd.rpm creates=/etc/yum.repos.d/UMD-{{ umd_major_release }}-base.repo 
+  environment: "{{ proxy_env }}"
+  when: "'umd' in {{ repos }}"
 
 - name: Install EGI-trustanchors repository definitions
   tags: ca_bundle_repo
   copy: src=EGI-trustanchors.repo 
         dest=/etc/yum.repos.d/EGI-trustanchors.repo backup=no
         owner=root group=root mode=0644
-  only_if: "'egi-trustanchors' in $repos"
+  when: "'egi-trustanchors' in {{ repos }}"
 
 - name: Install arstats devel repository definitions
   tags: arstats_devel_repo
   copy: src=files/etc/yum.repos.d/arstats-devel.repo 
         dest=/etc/yum.repos.d/arstats-devel.repo backup=no
         owner=root group=root mode=0644
-  only_if: "'arstats-devel' in $repos"
+  when: "'arstats-devel' in {{ repos }}"
 
 - name: Download ar-stats package
   tags: arstats_repo
-  get_url: url=${arstats_release_url}/${arstats_release_name} dest=/tmp/${arstats_release_name} mode=0644
-  environment: $proxy_env
-  only_if: "'ar-stats' in $repos"
+  get_url: url={{ arstats_release_url }}/{{ arstats_release_name }} dest=/tmp/{{ arstats_release_name }} mode=0644
+  environment: "{{ proxy_env }}"
+  when: "'ar-stats' in {{ repos }}"
 
 - name: Install epel-release package
   tags: arstats_repo
-  command: yum install -y ${yum_flags} /tmp/${arstats_release_name} creates=/etc/yum.repos.d/arstats.repo
+  command: yum install -y /tmp/{{ arstats_release_name }} creates=/etc/yum.repos.d/arstats.repo
   environment: $proxy_env
-  only_if: "'ar-stats' in $repos"
+  when: "'ar-stats' in {{ repos }}"
 
 - name: Install glusterfs-epel 3.4.0 repo
   tags: gluster_repo
   copy: src=files/etc/yum.repos.d/glusterfs-epel.repo-3.4.0
         dest=/etc/yum.repos.d/glusterfs-epel.repo backup=no
         owner=root group=root mode=0644
-  only_if: "'gluster' in $repos"
+  when: "'gluster' in {{ repos }}"
 
 - name: Install cloudera-cdh4 repo
   tags: cloudera-cdh4_repo
   copy: src=files/etc/yum.repos.d/cloudera-cdh4.repo
         dest=/etc/yum.repos.d/cloudera-cdh4.repo backup=no
         owner=root group=root mode=0644
-  only_if: "'cloudera-cdh4' in $repos"
+  when: "'cloudera-cdh4' in {{ repos }}"
